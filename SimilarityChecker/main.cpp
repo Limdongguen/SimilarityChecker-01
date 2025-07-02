@@ -2,37 +2,30 @@
 #include "similarity_checker.cpp"
 #include <iostream>
 
-TEST(TS, TC1) {
-	string test_string1 = "ASD";
-	string test_string2 = "DSA";
+class SimilarityCheckerFixture : public testing::Test {
+public:
 	SimilarityChecker checker;
-	int length_score = checker.run(test_string1, test_string2);
-	EXPECT_EQ(60, length_score);
+	void run(int expected, string test_string1, string test_string2) {
+		auto score = checker.run(test_string1, test_string2);
+		EXPECT_EQ(expected, score);
+	}
+};
+
+TEST_F(SimilarityCheckerFixture, TC1) {
+	run(60, "ASD", "DSA");
 }
 
-TEST(TS, TC2) {
-	string test_string1 = "A";
-	string test_string2 = "BB";
-	SimilarityChecker checker;
-	int length_score = checker.run(test_string1, test_string2);
-	EXPECT_EQ(0, length_score);
+TEST_F(SimilarityCheckerFixture, TC2) {
+	run(0, "A", "DSA");
 }
 
-TEST(TS, TC3) {
-	string test_string1 = "AAABB";
-	string test_string2 = "BAA";
-	SimilarityChecker checker;
-	int length_score = checker.run(test_string1, test_string2);
-	EXPECT_EQ(20, length_score);
+TEST_F(SimilarityCheckerFixture, TC3) {
+	run(20, "ASDSF", "DSA");
 }
 
 
-TEST(TS, TC4) {
-	string test_string1 = "AA";
-	string test_string2 = "AAE";
-	SimilarityChecker checker;
-	int length_score = checker.run(test_string1, test_string2);
-	EXPECT_EQ(30, length_score);
+TEST_F(SimilarityCheckerFixture, TC4) {
+	run(30, "AA", "AAE");
 }
 
 int main() {
