@@ -10,10 +10,22 @@ using std::string;
 class SimilarityChecker {
 public:
 	int run(const string& str1, const string& str2) {
-		return getLengthScore(str1, str2);
+		int result = 0;
+		result = getLengthScore(str1, str2) + getAlphaScore(str1, str2);
+		return result;
 	}
 
 private:
+	int getAlphaScore(const string& str1, const string& str2) {
+		int total_count = 0;
+		int same_count = 0;
+		for (auto i = 'A'; i <= 'Z'; i++) {
+			if ((str1.find(i) != string::npos) || (str2.find(i) != string::npos)) total_count++;
+			if ((str1.find(i) != string::npos) && (str2.find(i) != string::npos)) same_count++;
+		}
+		return  (same_count / total_count) * 40.0;
+	}
+
 	int getLengthScore(const string& str1, const string& str2)
 	{
 		int length_score = 60;

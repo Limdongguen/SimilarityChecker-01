@@ -12,7 +12,7 @@ public:
 };
 
 TEST_F(SimilarityCheckerFixture, TC1) {
-	run(60, "ASD", "DSA");
+	run(100, "ASD", "DSA");
 }
 
 TEST_F(SimilarityCheckerFixture, TC2) {
